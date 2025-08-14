@@ -30,6 +30,7 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - Use the retrieve method to retrieve all Developer Tasks on TmpDeveloperTaskController apex class
         - Add Picker record component to assign a contact as owner of the tast (to make looks more accurate)
         - Include refresh module for refresh Developer Task when a new task is created
+            - Adjust to refresh click a button as well.
         - Show all Developer Task
             - Split by status: Not Started, In Progress and Completed
             - reuse tmpDevTaskCard to see developer tasks.

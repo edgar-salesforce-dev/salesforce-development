@@ -78,7 +78,7 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
                     Name: devTaskRecord.fields.Name.value
                 }
                 this.showSuccessToast(message, options);
-                await refreshApex(this.devTasksData);
+                this.handleRefreshTashs();
                 this.resetFormFields();
             }
         } catch(error){
@@ -132,5 +132,8 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
         };
 
         this[NavigationMixin.Navigate](pageRef);
+    }
+    async handleRefreshTashs(e){
+        await refreshApex(this.devTasksData);
     }
 }

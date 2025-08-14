@@ -3,6 +3,13 @@
         <h1 slot="title">
             Developer Task Manager - TMP
         </h1>
+        <header slot="actions">
+            <lightning-button 
+                label="Refresh Developer Tasks"
+                icon-name="utility:refresh"
+                onclick={handleRefreshTashs} 
+            ></lightning-button>
+        </header>
         <main class="slds-var-p-around_large">
             <lightning-layout multiple-rows>
                 <lightning-layout-item size="12" large-device-size="4" medium-device-size="6" small-device-size="12" padding="around-small">
