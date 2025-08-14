@@ -15,12 +15,15 @@ Create a Task Manager application in Salesforce where users can create, view, up
 
 **Prerequisits**
 1. Create the Custom Object In Salesforce Setup, navigate to `Object Manager > Create > Custom Object.`
-    - Create a custom object named Developer Task with API name Developer_Task__c.
-    - Add the following fields:Title__c (Text, Required)
-    - Description__c (Text Area)
-    - Due_Date__c (Date)
-    - Status__c (Picklist: Not Started, In Progress, Completed)
-    - Resolution__c (Text Area)
+    - Create a custom object named Developer Task with API name `Developer_Task__c`.
+    - Add the following fields: `Title__c` (Text, Required)
+    - `Description__c` (Text Area)
+    - `Due_Date__c` (Date)
+    - `Status__c` (Picklist: Not Started, In Progress, Completed)
+    - `Resolution__c` (Text Area)
     - Ensure the object is accessible to the intended users (for practice is just for admins).
 
 **Components**
+LWCs
+- tmpDeveloperTaskManager
+    - create a developer task using `Lightning Data Service`
