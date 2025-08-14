@@ -7,12 +7,38 @@ import { NavigationMixin } from 'lightning/navigation';
 import { errorNotificationMessages } from 'c/utilities';
 import DEV_TASK_OBJECT from '@salesforce/schema/Developer_Task__c';
 import STATUS_FIELD from '@salesforce/schema/Developer_Task__c.Status__c';
+import CONTACT_OBJECT from '@salesforce/schema/Contact'
 import retrieveAllDeveloperTask from '@salesforce/apex/TmpDeveloperTaskController.retrieveAllDeveloperTask';
+import { refreshApex } from '@salesforce/apex';
+
+const STATUS = {
+    notStarted: 'Not Started',
+    inProgress: 'In Progress',
+    completed: 'Completed',
+}
 
 export default class TmpDeveloperTaskManager extends NavigationMixin(LightningElement) {
     recordTypeId;
     statusOptions;
     @track fields = {};
+
+    objectApiName = CONTACT_OBJECT.objectApiName;
+
+    get isData(){
+        return this.devTasksData.data?.length;
+    }
+
+    get tasksNotStarted() {
+        return this.devTasksData.data.filter(task => task.Status__c === STATUS.notStarted);
+    }
+
+    get tasksInProgress() {
+        return this.devTasksData.data.filter(task => task.Status__c === STATUS.inProgress);
+    }
+
+    get tasksCompleted() {
+        return this.devTasksData.data.filter(task => task.Status__c === STATUS.completed);
+    }
 
     @wire(getObjectInfo, { objectApiName: DEV_TASK_OBJECT})
     handleTaskObjectInfo({ error, data }){
@@ -36,7 +62,7 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
     devTasksData;
 
     handleInputChange(e){
-        this.fields[e.target.name] = e.target.value;
+        this.fields[e.target.name] = e.detail?.value || e.detail.recordId;
     }
 
     async handleSubmit(e){
@@ -52,10 +78,11 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
                     Name: devTaskRecord.fields.Name.value
                 }
                 this.showSuccessToast(message, options);
+                await refreshApex(this.devTasksData);
                 this.resetFormFields();
             }
         } catch(error){
-            const message = error?.body.message ?? 'Unable to Create Developer Task...'
+            const message = error?.body.message ?? 'Unable to Create Developer Task...';
             const messages = [ message ];
             errorNotificationMessages(messages, this);
         }
@@ -64,7 +91,11 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
     resetFormFields(){
         const inputForms = this.template.querySelectorAll('.input-form');
         inputForms.forEach(input => {
-            input.value = undefined;
+            if(input.name === 'Owner__c'){
+                input.clearSelection();
+            } else {
+                input.value = undefined;
+            }
         });
     }
     showSuccessToast(message, options){
@@ -88,5 +119,18 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
             });
             this.dispatchEvent(event);
         });
+    }
+    handleNavigateTask(event){
+        const { recordId, action } = event.detail;
+
+        const pageRef = {
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: recordId,
+                actionName: action
+            }
+        };
+
+        this[NavigationMixin.Navigate](pageRef);
     }
 }

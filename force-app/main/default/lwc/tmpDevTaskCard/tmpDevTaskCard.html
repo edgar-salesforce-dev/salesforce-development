@@ -1,0 +1,42 @@
+<template>
+    <article class={cardStyles}>
+        <lightning-layout horizontal-align="spread" multiple-rows>
+            <lightning-layout-item size="12">
+                <div class="slds-float_right">
+                    <lightning-button-icon
+                        icon-name="utility:edit"
+                        alternative-text="Edit"
+                        size="small"
+                        type="button"
+                        variant="bare"
+                        onclick={openForEdit}
+                    ></lightning-button-icon>
+                </div>
+                <h2 class="slds-text-align_center slds-text-title_bold">
+                    <a onclick={handleNavigate}>{task.Name}</a>
+                </h2>
+            </lightning-layout-item>
+            <lightning-layout-item size="12">
+                <h3 class="slds-text-align_center slds-truncate slds-var-m-vertical_small">{task.Title__c}</h3>
+            </lightning-layout-item>
+            <lightning-layout-item size="12">
+                <div class="slds-text-align_center slds-var-m-vertical_small">
+                    <strong>Owner: </strong>
+                    <a onclick={handleNavigateOwner}>{task.Owner__r.Name}</a>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="6">
+                <div class="slds-text-align_center slds-var-m-vertical_small">
+                    <span>
+                        <lightning-formatted-date-time value={task.Due_Date__c}></lightning-formatted-date-time>
+                    </span>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="6">
+                <div class="slds-text-align_center slds-var-m-vertical_small">
+                    <span>{task.Status__c}</span>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </article>
+</template>

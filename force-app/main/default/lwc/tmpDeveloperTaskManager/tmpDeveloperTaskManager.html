@@ -11,6 +11,15 @@
                         <lightning-textarea class="input-form" label="Description" onchange={handleInputChange} name="Description__c" placeholder="Task Description..."></lightning-textarea>
                         <lightning-input class="input-form" type="date" label="Due Date" onchange={handleInputChange} name="Due_Date__c" placeholder="Task Due Date"></lightning-input>
                         <lightning-combobox class="input-form" label="Status" options={statusOptions} onchange={handleInputChange} name="Status__c"></lightning-combobox>
+                        <lightning-record-picker
+                            class="input-form"
+                            label="Owner"
+                            placeholder="Task Owner"
+                            object-api-name={objectApiName}
+                            onchange={handleInputChange}
+                            name="Owner__c"
+                            required
+                        ></lightning-record-picker>
                         <div class="slds-var-m-top_medium">
                             <lightning-button label="Create Developer Task" variant="brand" type="submit"></lightning-button>
                         </div>
@@ -18,6 +27,41 @@
                 </lightning-layout-item>
                 <lightning-layout-item size="12" large-device-size="8" medium-device-size="6" small-device-size="12" padding="around-small">
                     <!-- Task Cards Container -->
+                    <template lwc:if={isData}>
+                        <section class="tasks-container">
+                            <section class="tasks-item tasks-not-started">
+                                <h2 class="slds-text-align_center slds-text-heading_small slds-var-m-bottom_medium">Not Started</h2>
+                                <template for:each={tasksNotStarted} for:item="task">
+                                    <div class="slds-var-m-vertical_small" key={task.Id} >
+                                        <c-tmp-dev-task-card task={task} onnavigate={handleNavigateTask}></c-tmp-dev-task-card>
+                                    </div>
+                                </template>
+                            </section>
+                            <section class="tasks-item tasks-in-progress">
+                                <h2 class="slds-text-align_center slds-text-heading_small slds-var-m-bottom_medium">In Progress</h2>
+                                <template for:each={tasksInProgress} for:item="task">
+                                    <div class="slds-var-m-vertical_small" key={task.Id} >
+                                        <c-tmp-dev-task-card task={task} onnavigate={handleNavigateTask}></c-tmp-dev-task-card>
+                                    </div>
+                                </template>
+                            </section>
+                            <section class="tasks-item tasks-completed">
+                                <h2 class="slds-text-align_center slds-text-heading_small slds-var-m-bottom_medium">Completed</h2>
+                                <template for:each={tasksCompleted} for:item="task">
+                                    <div class="slds-var-m-vertical_small" key={task.Id} >
+                                        <c-tmp-dev-task-card task={task} onnavigate={handleNavigateTask}></c-tmp-dev-task-card>
+                                    </div>
+                                </template>
+                            </section>
+                        </section>
+                    </template>
+                    <template lwc:else>
+                        <article class="slds-box">
+                            <p class="slds-text-align_center">
+                                There is no data to show...
+                            </p>
+                        </article>
+                    </template>
                 </lightning-layout-item>
             </lightning-layout>
         </main>

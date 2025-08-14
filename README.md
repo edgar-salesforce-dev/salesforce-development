@@ -28,10 +28,22 @@ Create a Task Manager application in Salesforce where users can create, view, up
     - tmpDeveloperTaskManager
         - create a developer task using `Lightning Data Service`
         - Use the retrieve method to retrieve all Developer Tasks on TmpDeveloperTaskController apex class
+        - Add Picker record component to assign a contact as owner of the tast (to make looks more accurate)
+        - Include refresh module for refresh Developer Task when a new task is created
+        - Show all Developer Task
+            - Split by status: Not Started, In Progress and Completed
+            - reuse tmpDevTaskCard to see developer tasks.
+    - tmpDevTaskCard
+        - Developer Task Details
+        - Option to navigate to details record
+        - Option to open form to edit record
+        - Option to navigate to the Task Owner
 
 - `Apex Classes`
     - TmpDeveloperTaskController
-        - retrieve developer task, sort by due date.
-            - avalable for the LWCs
+        - method: retrieveAllDeveloperTask
+            - retrieve developer task, sort by due date.
+                - avalable for the LWCs
+            - Include Owner__c field.
     - TmpDeveloperTaskControllerTest
         - test retrieve records

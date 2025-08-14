@@ -1,0 +1,13 @@
+.tasks-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.tasks-item {
+    height: 100%;
+    padding: 1rem;
+}
+
+.tasks-not-started, .tasks-in-progress {
+    border-right: 1px dashed gray;
+}
