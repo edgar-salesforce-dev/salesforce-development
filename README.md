@@ -24,6 +24,14 @@ Create a Task Manager application in Salesforce where users can create, view, up
     - Ensure the object is accessible to the intended users (for practice is just for admins).
 
 **Components**
-LWCs
-- tmpDeveloperTaskManager
-    - create a developer task using `Lightning Data Service`
+- `LWCs`
+    - tmpDeveloperTaskManager
+        - create a developer task using `Lightning Data Service`
+        - Use the retrieve method to retrieve all Developer Tasks on TmpDeveloperTaskController apex class
+
+- `Apex Classes`
+    - TmpDeveloperTaskController
+        - retrieve developer task, sort by due date.
+            - avalable for the LWCs
+    - TmpDeveloperTaskControllerTest
+        - test retrieve records

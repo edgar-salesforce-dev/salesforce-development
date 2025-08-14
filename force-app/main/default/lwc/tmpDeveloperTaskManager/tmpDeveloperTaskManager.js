@@ -7,6 +7,7 @@ import { NavigationMixin } from 'lightning/navigation';
 import { errorNotificationMessages } from 'c/utilities';
 import DEV_TASK_OBJECT from '@salesforce/schema/Developer_Task__c';
 import STATUS_FIELD from '@salesforce/schema/Developer_Task__c.Status__c';
+import retrieveAllDeveloperTask from '@salesforce/apex/TmpDeveloperTaskController.retrieveAllDeveloperTask';
 
 export default class TmpDeveloperTaskManager extends NavigationMixin(LightningElement) {
     recordTypeId;
@@ -30,6 +31,9 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
             this.statusOptions = [];
         }
     }
+
+    @wire(retrieveAllDeveloperTask)
+    devTasksData;
 
     handleInputChange(e){
         this.fields[e.target.name] = e.target.value;
