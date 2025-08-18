@@ -23,8 +23,21 @@ const errorNotificationMessages = (messages, context) => {
 }
 
 /**
+ * Capitalize the first letter in a string/word capitalizeString('test') => Test .
+ * @param {str} string or word to capitalize.
+ * @return {string} capitalized string.
+ */
+const capitalizeString = (str) => {
+    if (typeof str !== 'string' || str.length === 0) {
+        return '';
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+/**
  * List all reusable functionalities
  */
 export {
-    errorNotificationMessages
+    errorNotificationMessages,
+    capitalizeString
 }
