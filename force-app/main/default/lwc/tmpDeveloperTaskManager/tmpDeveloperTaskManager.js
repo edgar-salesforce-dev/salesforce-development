@@ -4,17 +4,32 @@ import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
-import { errorNotificationMessages } from 'c/utilities';
+import { errorNotificationMessages, capitalizeString } from 'c/utilities';
 import DEV_TASK_OBJECT from '@salesforce/schema/Developer_Task__c';
 import STATUS_FIELD from '@salesforce/schema/Developer_Task__c.Status__c';
 import CONTACT_OBJECT from '@salesforce/schema/Contact'
 import retrieveAllDeveloperTask from '@salesforce/apex/TmpDeveloperTaskController.retrieveAllDeveloperTask';
 import { refreshApex } from '@salesforce/apex';
+import ModalMassAction from 'c/massModalActions';
+
+const COMP_CONTEXT = 'tasks';
 
 const STATUS = {
     notStarted: 'Not Started',
     inProgress: 'In Progress',
     completed: 'Completed',
+}
+
+const REFRESH_TASKS_TOAST = {
+    title: 'Success!',
+    message: 'Tasks Refreshed Successfully',
+    variant: 'success'
+}
+
+const ACTION_CANCELED_TOAST = {
+    title: 'Warning!',
+    message: 'Action Canceled',
+    variant: 'warning'
 }
 
 export default class TmpDeveloperTaskManager extends NavigationMixin(LightningElement) {
@@ -78,7 +93,7 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
                     Name: devTaskRecord.fields.Name.value
                 }
                 this.showSuccessToast(message, options);
-                this.handleRefreshTashs();
+                this.handleRefreshTasks();
                 this.resetFormFields();
             }
         } catch(error){
@@ -133,7 +148,34 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
 
         this[NavigationMixin.Navigate](pageRef);
     }
-    async handleRefreshTashs(e){
+    async handleRefreshTasks(){
         await refreshApex(this.devTasksData);
+        this.showToast(REFRESH_TASKS_TOAST)
+    }
+
+    async handleMassiveActionTasks(e){
+        const action = e.target.name;
+        const tasksData = [ ...this.tasksNotStarted, ...this.tasksInProgress ];
+        const result = await ModalMassAction.open({
+            headerLabel: `Massive ${capitalizeString(action)} Action`,
+            data: tasksData,
+            action: action,
+            context: COMP_CONTEXT
+        });
+        
+        switch(action){
+            case 'delete':
+                if(result === 'records deleted'){
+                    this.handleRefreshTasks();
+                } else {
+                    this.showToast(ACTION_CANCELED_TOAST);
+                }
+            break;
+        }
+    }
+    
+    showToast(objDetails){
+        const toast = new ShowToastEvent(objDetails);
+        this.dispatchEvent(toast);
     }
 }

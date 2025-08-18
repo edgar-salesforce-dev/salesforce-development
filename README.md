@@ -34,6 +34,11 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - Show all Developer Task
             - Split by status: Not Started, In Progress and Completed
             - reuse tmpDevTaskCard to see developer tasks.
+        - Include Delete Task button:
+            - able to delete not completed tasks
+            - delete by selecting
+                - reusing massModalAction component to delete.
+        - Include showToast method to show a toast notification.
     - tmpDevTaskCard
         - Developer Task Details
         - Option to navigate to details record

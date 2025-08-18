@@ -5,9 +5,8 @@
 
 .tasks-item {
     height: 100%;
-    padding: 1rem;
 }
 
 .tasks-not-started, .tasks-in-progress {
-    border-right: 1px dashed gray;
+    border-right: var(--lwc-borderWidthThin, 1px) dashed gray;
 }

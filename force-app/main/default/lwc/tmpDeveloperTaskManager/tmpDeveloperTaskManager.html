@@ -4,11 +4,19 @@
             Developer Task Manager - TMP
         </h1>
         <header slot="actions">
-            <lightning-button 
-                label="Refresh Developer Tasks"
-                icon-name="utility:refresh"
-                onclick={handleRefreshTashs} 
-            ></lightning-button>
+            <lightning-button-group>
+                <lightning-button 
+                    label="Refresh Developer Tasks"
+                    icon-name="utility:refresh"
+                    onclick={handleRefreshTasks} 
+                ></lightning-button>
+                <lightning-button 
+                    label="Delete Tasks"
+                    icon-name="utility:bucket"
+                    onclick={handleMassiveActionTasks}
+                    name="delete"
+                ></lightning-button>
+            </lightning-button-group>
         </header>
         <main class="slds-var-p-around_large">
             <lightning-layout multiple-rows>
@@ -36,7 +44,7 @@
                     <!-- Task Cards Container -->
                     <template lwc:if={isData}>
                         <section class="tasks-container">
-                            <section class="tasks-item tasks-not-started">
+                            <section class="tasks-item slds-var-p-around_medium tasks-not-started">
                                 <h2 class="slds-text-align_center slds-text-heading_small slds-var-m-bottom_medium">Not Started</h2>
                                 <template for:each={tasksNotStarted} for:item="task">
                                     <div class="slds-var-m-vertical_small" key={task.Id} >
@@ -44,7 +52,7 @@
                                     </div>
                                 </template>
                             </section>
-                            <section class="tasks-item tasks-in-progress">
+                            <section class="tasks-item slds-var-p-around_medium tasks-in-progress">
                                 <h2 class="slds-text-align_center slds-text-heading_small slds-var-m-bottom_medium">In Progress</h2>
                                 <template for:each={tasksInProgress} for:item="task">
                                     <div class="slds-var-m-vertical_small" key={task.Id} >
@@ -52,7 +60,7 @@
                                     </div>
                                 </template>
                             </section>
-                            <section class="tasks-item tasks-completed">
+                            <section class="tasks-item slds-var-p-around_medium tasks-completed">
                                 <h2 class="slds-text-align_center slds-text-heading_small slds-var-m-bottom_medium">Completed</h2>
                                 <template for:each={tasksCompleted} for:item="task">
                                     <div class="slds-var-m-vertical_small" key={task.Id} >
