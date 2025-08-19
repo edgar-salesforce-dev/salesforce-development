@@ -39,6 +39,9 @@ Create a Task Manager application in Salesforce where users can create, view, up
             - delete by selecting
                 - reusing massModalAction component to delete.
         - Include showToast method to show a toast notification.
+        - Move creation task FORM to a modal, to use the space for tasks.
+            - include Create New Task to open the modal.
+            - include modal.
     - tmpDevTaskCard
         - Developer Task Details
         - Option to navigate to details record

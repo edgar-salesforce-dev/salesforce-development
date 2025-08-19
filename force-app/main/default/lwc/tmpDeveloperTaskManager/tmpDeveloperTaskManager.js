@@ -38,6 +38,7 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
     @track fields = {};
 
     objectApiName = CONTACT_OBJECT.objectApiName;
+    showCreateForm = false;
 
     get isData(){
         return this.devTasksData.data?.length;
@@ -100,6 +101,8 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
             const message = error?.body.message ?? 'Unable to Create Developer Task...';
             const messages = [ message ];
             errorNotificationMessages(messages, this);
+        } finally {
+            this.closeModal();
         }
     }
 
@@ -177,5 +180,13 @@ export default class TmpDeveloperTaskManager extends NavigationMixin(LightningEl
     showToast(objDetails){
         const toast = new ShowToastEvent(objDetails);
         this.dispatchEvent(toast);
+    }
+
+    handleCreateTask(){
+        this.showCreateForm = true;
+    }
+
+    closeModal(){
+        this.showCreateForm = false;
     }
 }
