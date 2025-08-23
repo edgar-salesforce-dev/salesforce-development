@@ -1,0 +1,44 @@
+<template>
+    <article class="slds-card slds-var-p-around_large">
+        <lightning-layout horizontal-align="space" vertical-align="start" multiple-rows>
+            <lightning-layout-item size="12" large-device-size="3" medium-device-size="4" small-device-size="12"
+                padding="around-small">
+                <form class="slds-form slds-box" onsubmit={handleGetWeatherInformation}>
+                    <lightning-input type="text" label="City" placeholder="e.g., New York" onchange={handleCityChange}
+                        value={city}></lightning-input>
+                    <div class="slds-var-m-top_small">
+                        <lightning-button variant="neutral" label="Get Weather" type="submit"></lightning-button>
+                    </div>
+                    <template lwc:if={isError}>
+                        <section class="slds-box slds-theme_error slds-var-m-top_large">
+                            <p>{error}</p>
+                        </section>
+                    </template>
+                </form>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" large-device-size="9" medium-device-size="8" small-device-size="12"
+                padding="around-small">
+                <template lwc:if={isLoading}>
+                    <div class="slds-is-relative" style="height: 6rem;">
+                        <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+                    </div>
+                </template>
+                <template lwc:elseif={isData}>
+                    <article class="slds-box">
+                        <h1 class="slds-text-align_center slds-text-heading_large">
+                            {name}
+                        </h1>
+                        <lightning-layout horizontal-align="space" vertical-align="start" multiple-rows>
+                            <lightning-layout-item size="12" large-device-size="5" medium-device-size="6" small-device-size="12">
+                                <!-- TBD show details -->
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" large-device-size="5" medium-device-size="6" small-device-size="12">
+                                <!-- location Map -->
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </article>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+    </article>
+</template>

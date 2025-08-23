@@ -57,6 +57,33 @@ Create a Task Manager application in Salesforce where users can create, view, up
             - Include Owner__c field.
     - TmpDeveloperTaskControllerTest
         - test retrieve records
+
+## Weather Project Project: WP
+
+**Requirement:**
+
+* Create an application that shows the weather information from a particular ciry such as New York, Rome, Monterrey, etc.
+    - The city should be entered dynamically.
+    - Show much details as possible.
+    - Use the Weather API to get the information.
+    - should work for Mobile phones.
+
+**Components**
+* `LWC`
+    - `wpManagerByCity`
+        - includes and input to enter the city.
+        - includes a button to callout the weather api.
+        - show weather details (TBD)
+        - Accommodate component for errors from the api.
+
+* `Apex Classes`
+    - `WeatherProjectController`
+        - Connect to the weather API
+        - Adjust to execute from an LWC.
+    - `WeatherProjectControllerTest`:
+        - test class for: `WeatherProjectController`
+        - coverage: 100%
+
 # Utils
 ## Integration Service with metadata
 - Apex Classes:
