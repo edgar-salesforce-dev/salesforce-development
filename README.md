@@ -79,3 +79,4 @@ Create a Task Manager application in Salesforce where users can create, view, up
             - positive
             - empty params
             - empty service
+    - `Constants` class
