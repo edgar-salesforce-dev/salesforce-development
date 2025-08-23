@@ -21,20 +21,28 @@
             </lightning-layout-item>
             <lightning-layout-item size="12">
                 <div class="slds-text-align_center slds-var-m-vertical_small">
-                    <strong>Owner: </strong>
+                    <strong>Owner:  </strong>
                     <a onclick={handleNavigateOwner}>{task.Owner__r.Name}</a>
                 </div>
             </lightning-layout-item>
             <lightning-layout-item size="6">
                 <div class="slds-text-align_center slds-var-m-vertical_small">
-                    <span>
-                        <lightning-formatted-date-time value={task.Due_Date__c}></lightning-formatted-date-time>
-                    </span>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <label><strong>Due Date:</strong></label>
+                        <span class="slds-var-m-left_x-small">
+                            <lightning-formatted-date-time value={task.Due_Date__c}></lightning-formatted-date-time>ß
+                        </span>
+                    </div>
                 </div>
             </lightning-layout-item>
             <lightning-layout-item size="6">
                 <div class="slds-text-align_center slds-var-m-vertical_small">
-                    <span>{task.Status__c}</span>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <label>
+                            <strong>Status:</strong>
+                        </label>
+                        <span class="slds-var-m-left_x-small">{task.Status__c}</span>
+                    </div>
                 </div>
             </lightning-layout-item>
         </lightning-layout>

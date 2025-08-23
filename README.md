@@ -47,6 +47,7 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - Option to navigate to details record
         - Option to open form to edit record
         - Option to navigate to the Task Owner
+        - Include labels to Due Date and Status
 
 - `Apex Classes`
     - TmpDeveloperTaskController
