@@ -57,3 +57,25 @@ Create a Task Manager application in Salesforce where users can create, view, up
             - Include Owner__c field.
     - TmpDeveloperTaskControllerTest
         - test retrieve records
+# Utils
+## Integration Service with metadata
+- Apex Classes:
+    - `IntegrationService` class
+        - Reusable class that build an HttpRequest for a callout, base on custom metadata types a record represents information for a request: `IntegrationService__mdt`
+            - Custom Fields:
+                - `Key_Reference__c`
+                - `API_Key__c`
+                - `Endpoint__c`
+                - `Method__c`
+                - `Timeout__c`
+                - `Service__c`
+        - Parameters:
+            - `service` {String}
+            - `params` {Map<String, Object>}
+    - `IntegrationServiceTest` class
+        - Test for: `IntegrationService` class
+        - Coverage: 100%
+        - Scenarios:
+            - positive
+            - empty params
+            - empty service
