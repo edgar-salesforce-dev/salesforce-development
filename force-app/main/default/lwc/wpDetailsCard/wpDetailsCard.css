@@ -1,0 +1,9 @@
+
+.background-weather-card {
+    background: radial-gradient(#00bb4e 20%, #95f5bd 80%);
+}
+
+h2, h3, span {
+    color: #fafafa;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}

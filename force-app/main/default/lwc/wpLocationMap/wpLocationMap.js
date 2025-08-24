@@ -2,7 +2,6 @@ import { LightningElement, api } from 'lwc';
 
 export default class WpLocationMap extends LightningElement {
     @api coord;
-    @api title;
     
     get mapMarkers(){
         const marker = {

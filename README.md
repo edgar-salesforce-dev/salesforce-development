@@ -78,6 +78,8 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - Include try catch for error handling: for the callout response
         - include the `wpLocationMap` component
             - pass `coord` values.
+        - add `wpDetailsCard` component
+            - display `city`, `temperature`, `max temp`, `min temp`, `feels like` and `wind speed`.
 
 * `Apex Classes`
     - `WeatherProjectController`

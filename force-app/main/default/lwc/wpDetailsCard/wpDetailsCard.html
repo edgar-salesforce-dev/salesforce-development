@@ -1,0 +1,30 @@
+<template>
+    <article class="slds-box background-weather-card">
+        <h2 class="slds-text-heading_medium slds-text-align_center">
+            {name}
+        </h2>
+        <h2 class="slds-text-heading_small slds-text-align_center">
+            {main.temp} {tempUnit}
+        </h2>
+        <lightning-layout horizontal-align="center" vertical-align="start" multiple-rows>
+            <lightning-layout-item size="12" large-device-size="6" medium-device-size="6" small-device-size="12">
+                <h3 class="slds-text-title_bold slds-text-align_center slds-var-m-around_x-small">Temperature</h3>
+                <div class="slds-var-m-around_xx-small">
+                    <span><strong>Like: </strong>{main.feels_like} {tempUnit}</span>
+                </div>
+                <div class="slds-var-m-around_xx-small">
+                    <span><strong>Max: </strong>{main.temp_max} {tempUnit}</span>
+                </div>
+                <div class="slds-var-m-around_xx-small">
+                    <span><strong>Min: </strong>{main.temp_min} {tempUnit}</span>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" large-device-size="6" medium-device-size="6" small-device-size="12">
+                <h3 class="slds-text-title_bold slds-text-align_center slds-var-m-around_x-small">Wind</h3>
+                <div class="slds-var-m-around_xx-small">
+                    <span><strong>Speed: </strong>{wind.speed} {speedUnit}</span>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </article>
+</template>
