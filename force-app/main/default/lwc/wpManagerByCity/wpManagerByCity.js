@@ -13,24 +13,27 @@ export default class WpManagerByCity extends LightningElement {
 
     async handleGetWeatherInformation(e) {
         e.preventDefault();
-        this.resetComponentProperties();
-        const data = await getWeatherInformation({ city: this.city });
-        const parsedData = JSON.parse(data);
-
-        if(parsedData.status === 'SUCCESS'){
-            const weatherData = JSON.parse(parsedData.data);
-            for(let key in weatherData){
-                if(VALID_KEYS.includes(key)) {
-                    this[key] = weatherData[key];
+        try {
+            this.resetComponentProperties();
+            const data = await getWeatherInformation({ city: this.city });
+            const parsedData = JSON.parse(data);
+            if(parsedData.status === 'SUCCESS'){
+                const weatherData = JSON.parse(parsedData.data);
+                for(let key in weatherData){
+                    if(VALID_KEYS.includes(key)) {
+                        this[key] = weatherData[key];
+                    }
                 }
+                this.isData = true;
+            } else {
+                throw parsedData.error;
             }
-            this.isData = true;
-        } else {
+        } catch(error) {
             this.isError = true;
-            this.error = this.processErrorMessage(parsedData.error);
+            this.error = this.processErrorMessage(error);
+        } finally {
+            this.isLoading = false;
         }
-
-        this.isLoading = false;
     }
 
     handleCityChange(event){

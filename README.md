@@ -75,6 +75,9 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - includes a button to callout the weather api.
         - show weather details (TBD)
         - Accommodate component for errors from the api.
+        - Include try catch for error handling: for the callout response
+        - include the `wpLocationMap` component
+            - pass `coord` values.
 
 * `Apex Classes`
     - `WeatherProjectController`
