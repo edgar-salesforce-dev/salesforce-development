@@ -83,7 +83,17 @@
                                 </h3>
                                 <ul>
                                     <template for:each={abilitiesInfo} for:item="ability">
-                                        <li key={ability} class="slds-badge slds-var-m-vertical_x-small">{ability}</li>
+                                        <li key={ability} class="slds-badge slds-var-m-vertical_x-small ability-background">{ability}</li>
+                                    </template>
+                                </ul>
+                            </template>
+                            <template lwc:if={pokeMoves}>
+                                <h3 class="slds-text-title_bold slds-var-m-top_small">
+                                    Moves (5):
+                                </h3>
+                                <ul>
+                                    <template for:each={pokeMoves} for:item="move">
+                                        <li key={move} class="slds-badge slds-var-m-vertical_x-small move-background">{move}</li>
                                     </template>
                                 </ul>
                             </template>

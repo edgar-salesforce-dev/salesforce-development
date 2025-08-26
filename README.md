@@ -109,7 +109,8 @@ Create a Task Manager application in Salesforce where users can create, view, up
                 - show pokemon details
                     - general info
                     - types
-                    - abilities
+                    - abilities (add styles)
+                    - moves
         - Accommodate component for errors from the api.
         - Include try catch for error handling: for the callout response
 

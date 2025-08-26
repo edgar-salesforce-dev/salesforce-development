@@ -4,7 +4,7 @@ import { capitalizeString, errorNotificationMessages } from 'c/utilities';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import POKEMON_TYPES_COLOR from '@salesforce/resourceUrl/pokemonTypesColors';
 
-const VALID_KEYS = ['name', 'id', 'height', 'weight', 'sprites', 'types', 'abilities'];
+const VALID_KEYS = ['name', 'id', 'height', 'weight', 'sprites', 'types', 'abilities', 'moves'];
 const BASE_STYLES = 'details-card'
 
 export default class PdPokedex extends LightningElement {
@@ -37,6 +37,10 @@ export default class PdPokedex extends LightningElement {
 
     get abilitiesInfo() {
         return this.abilities.map(ability => capitalizeString(ability.ability.name));
+    }
+
+    get pokeMoves(){
+        return this.moves.map(move => capitalizeString(move.move.name)).slice(0, 5);
     }
 
     connectedCallback(){

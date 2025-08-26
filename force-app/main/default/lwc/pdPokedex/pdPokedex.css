@@ -94,6 +94,19 @@
     animation-duration: 1s;
     animation-name: fade-in;
 }
+.ability-background {
+    background-color: #96D9D6;
+    background-image: linear-gradient(145deg, #96D9D6, #B6E6E3);
+    color: #1E4A4A; 
+    border: 1px solid #1E4A4A;
+}
+
+.move-background {
+    background-color: #B7B7CE;
+    background-image: linear-gradient(145deg, #B7B7CE, #D8D8E8);
+    color: #3A3A4A; 
+    border: 1px solid #3A3A4A;
+}
 
 @keyframes fade-in {
     from {
