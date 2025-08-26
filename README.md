@@ -89,6 +89,38 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - test class for: `WeatherProjectController`
         - coverage: 100%
 
+## Pokedex Project: PDP
+
+**Requirement:**
+
+* Create an application that shows a pokedex that shows information about a particular pokemon.
+    - Connect to the public poke api.
+
+**Components**
+* `LWC`
+    - `pdPokedex`
+        - includes and input to enter the name or pokemon id.
+        - includes a button to callout the poke api.
+        - show two sides:
+            - left:
+                - form to enter the name or id and the button for callout
+                - show the pokemon image
+            - right:
+                - show pokemon details
+                    - general info
+                    - types
+                    - abilities
+        - Accommodate component for errors from the api.
+        - Include try catch for error handling: for the callout response
+
+* `Apex Classes`
+    - `PDPPokemonController`
+        - Connect to the Poke API
+        - Adjust to execute from an LWC.
+    - `PDPPokemonControllerTest`:
+        - test class for: `PDPPokemonController`
+        - coverage: 100%
+
 # Utils
 ## Integration Service with metadata
 - Apex Classes:

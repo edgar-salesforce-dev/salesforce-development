@@ -1,0 +1,107 @@
+<template>
+    <main class="app">
+        <article class="slds-box pokedex-container">
+            <section class="slds-box pokedex-left">
+                <figure class=" slds-box slds-theme_shade pokemon-image">
+                    <template lwc:if={isLoading}>
+                        <div class="slds-is-relative spin-container">
+                            <lightning-spinner alternative-text="Loading" size="large"
+                                variant="brand"></lightning-spinner>
+                        </div>
+                    </template>
+                    <template lwc:elseif={isData}>
+                        <div class="image-card">
+                            <img src={pokemonImage} alt={name}>
+                            <h2 class="slds-text-heading_small slds-theme_shade slds-text-align_center">
+                                {capName}
+                            </h2>
+                        </div>
+                    </template>
+                    <template lwc:elseif={isError}>
+                        <article class="slds-var-p-vertical_small empty-image">
+                            <div>
+                                <div class="slds-align_absolute-center slds-var-m-bottom_medium">
+                                    <lightning-icon icon-name="utility:error" alternative-text="Error" size="large"
+                                        title="large size" variant="error"></lightning-icon>
+                                </div>
+                                <p class="slds-text-align_center slds-text-color_error"><small>{error}</small></p>
+                            </div>
+                        </article>
+                    </template>
+                    <template lwc:else>
+                        <article class="empty-image">
+                            <div>
+                                <div class="slds-align_absolute-center slds-var-m-bottom_medium">
+                                    <lightning-icon icon-name="utility:connected_apps" alternative-text="Error"
+                                        size="large" title="large size" variant="base"></lightning-icon>
+                                </div>
+                                <p><small>No Info to show</small></p>
+                            </div>
+                        </article>
+                    </template>
+                </figure>
+                <form class="slds-form" onsubmit={handleSearchPokemon}>
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_9-of-12 input-container slds-var-m-right_x-small">
+                            <lightning-input type="text" placeholder="e.g.: Pikachu or 150" label="Enter some text"
+                                variant="label-hidden" onchange={handlePokemonChange}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_3-of-12 btn-container">
+                            <lightning-button variant="brand" label="Search" type="submit"></lightning-button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section class="slds-box slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-medium-size_6-of-12 slds-small-size_12-of-12 pokedex-rigth">
+                <article class="slds-box slds-theme_default details-container">
+                    <template lwc:if={isLoading}>
+                        <div class="slds-is-relative spin-container">
+                            <lightning-spinner alternative-text="Loading" size="large"
+                                variant="brand"></lightning-spinner>
+                        </div>
+                    </template>
+                    <template lwc:elseif={isData}>
+                        <div class={detailsStyles}>
+                            <article class="slds-box slds-var-m-around_x-small">
+                                <h4 class="slds-text-heading_small slds-var-m-bottom_small">Id: {id}</h4>
+                                <span class="slds-var-m-around_x-small">Weight: {weight}</span>
+                                <span class="slds-var-m-around_x-small">Height: {height}</span>
+                            </article>
+                            <template lwc:if={pokeTypes}>
+                                <h3 class="slds-text-title_bold slds-var-m-top_small">
+                                    Types:
+                                </h3>
+                                <ul>
+                                    <template for:each={pokeTypes} for:item="type">
+                                        <li key={type.slot} class={type.style}>{type.name}</li>
+                                    </template>
+                                </ul>
+                            </template>
+                            <template lwc:if={abilitiesInfo}>
+                                <h3 class="slds-text-title_bold slds-var-m-top_small">
+                                    Abilities:
+                                </h3>
+                                <ul>
+                                    <template for:each={abilitiesInfo} for:item="ability">
+                                        <li key={ability} class="slds-badge slds-var-m-vertical_x-small">{ability}</li>
+                                    </template>
+                                </ul>
+                            </template>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <article class="details-card_empty">
+                            <div>
+                                <div class="slds-align_absolute-center slds-var-m-bottom_medium">
+                                    <lightning-icon icon-name="utility:connected_apps" alternative-text="Error" size="large"
+                                        title="large size" variant="base"></lightning-icon>
+                                </div>
+                                <p><small>No Info to show</small></p>
+                            </div>
+                        </article>
+                    </template>
+                </article>
+            </section>
+        </article>
+    </main>
+</template>
