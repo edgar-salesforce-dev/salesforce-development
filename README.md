@@ -122,6 +122,48 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - test class for: `PDPPokemonController`
         - coverage: 100%
 
+## Related Contacts Project: RCP
+
+**Requirement:**
+
+* Build a custom contact related list for account records. the idea is emhance the existing contact related list.
+    - it should keep the same functionalities like: edit, delete, add to a campaing, create a new
+    - enhancements:
+        - inline edit
+        - refresh button
+        - add or remove columns
+            - max: 8 fields
+            - min: 2 fields.
+
+**Components**
+* `LWC`
+    - `relatedEditableAndSortableContacts`
+        - header:
+            - title
+            - actions: refresh table, setup fields to display and new record.
+        - content:
+            - `datatable` display related contacts, with dynamic columns.
+        - footer
+            - redirect to the standard view all related list records.
+    - `modalContact`
+        - header: for add campaign and setup fields.
+        - content:
+            - form fields to add a campaign member
+            - set up fields
+        - footer:
+            - confirm field selection.
+
+* `Apex Classes`
+    - `AccountService`
+        - Method1: `getRelatedContacts`
+            - params:
+                - accountId
+                - fields: dynamic columns
+            - return: `List<Contact>`
+    - `AccountServiceTest`:
+        - test class for: `AccountService`
+        - coverage: 100%
+
 # Utils
 ## Integration Service with metadata
 - Apex Classes:

@@ -1,0 +1,39 @@
+<template>
+    <div class="slds-card">
+        <header class="slds-box slds-theme_shade slds-var-p-around_medium">
+            <lightning-layout horizontal-align="spread" vertical-align="center">
+                <lightning-layout-item flexibility="auto">
+                    <span class="slds-text-title_bold">Contacts ({numberOfRelatedContacts})</span>
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto">
+                    <div class="slds-align_absolute-center">
+                        <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" size="medium" type="button"
+                            variant="border-filled" onclick={handleRefresh}></lightning-button-icon>
+                        <lightning-button class="slds-var-m-left_xx-small" icon-name="utility:settings" icon-position="left" label="Set Fields" onclick={handleSetupFields}></lightning-button>
+                        <lightning-button class="slds-var-m-left_xx-small" label="New" onclick={handleCreateRelatedContact}></lightning-button>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </header>
+        <main>
+            <lightning-datatable key-field="Id" data={data} columns={columns} 
+                show-row-number-column
+                hide-checkbox-column
+                onrowaction={handleRowActionSelected}
+                draft-values={draftValues}
+                onsave={handleSave}></lightning-datatable>
+            <template lwc:if={errorMessage}>
+                <article class="slds-box">
+                    <p class="slds-text-align_center">
+                        {errorMessage}
+                    </p>
+                </article>
+            </template>
+        </main>
+        <footer class="slds-box slds-border_top slds-var-p-around_medium">
+                <div class="slds-text-align_center">
+                    <a class="slds-text-heading_small" onclick={handleNavigateToRelatedList}>View All</a>
+                </div>
+        </footer>
+    </div>
+</template>

@@ -1,0 +1,66 @@
+<template>
+    <lightning-modal-header label={header}></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="slds-card slds-var-p-horizontal_large slds-var-p-horizontal_small">
+            <template lwc:if={isAddCampaignAction}>
+                <lightning-layout vertical-align="start">
+                    <lightning-layout-item size="6" padding="around-medium">
+                        <h2 class="slds-var-p-around_x-small slds-theme_shade slds-border_top slds-border_bottom">
+                            Campaign Details
+                        </h2>
+                        <div class="slds-box slds-var-p-around_small">
+                            <lightning-record-picker label="Campaign" placeholder="Search Campaign..." object-api-name="Campaign"
+                                onchange={handleSelectCampaign} required></lightning-record-picker>
+                        </div>
+                    </lightning-layout-item>
+                    <template lwc:if={campaignId}>
+                        <lightning-layout-item size="6" padding="around-medium">
+                            <h2 class="slds-var-p-around_x-small slds-theme_shade slds-border_top slds-border_bottom">
+                                Campaign Member Information
+                            </h2>
+                            <div class="slds-box slds-var-p-around_small">
+                                <lightning-record-edit-form density="compact" object-api-name="CampaignMember" onsubmit={handleSubmitForm} onsuccess={handleSuccess} onerror={handleErrors}>
+                                    <lightning-input-field field-name="CampaignId" variant="standard" value={campaignId} disabled></lightning-input-field>
+                                    <lightning-input-field field-name="ContactId" variant="standard" value={contactId} disabled></lightning-input-field>
+                                    <lightning-input-field field-name="Status" variant="standard" value={defaultStatus} required></lightning-input-field>
+                                    <div class="slds-align_absolute-center slds-var-m-top_medium">
+                                        <lightning-button class="slds-var-m-right_small" label="Cancel" name="cancel" onclick={handleCancel}></lightning-button>
+                                        <lightning-button variant="brand" label="Add to Campaign" type="submit"></lightning-button>
+                                    </div>
+                                </lightning-record-edit-form>
+                            </div>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+            </template>
+            <template lwc:if={isSettingFields}>
+                <div class="slds-var-p-around_medium">
+                    <lightning-dual-listbox
+                        id="selectOptions"
+                        name="Select Options"
+                        label="Select Fields to Display"
+                        source-label="Available Options"
+                        selected-label="Selected Options"
+                        options={listOptions}
+                        value={selectedFields}
+                        onchange={handleFieldsChange}
+                    >
+                    </lightning-dual-listbox>
+                    <template lwc:if={limitsReached}>
+                        <p class="slds-text-align_center slds-text-color_error slds-var-m-top_medium">NOTE: 8 fields, are the MAXIMUM allowed. while 2 are the MNIMUM allowed</p>
+                    </template>
+                    <template lwc:else>
+                        <p class="slds-text-align_center slds-var-m-top_medium">
+                            <code>
+                                <strong>fields</strong>: {currentFields}
+                            </code>
+                        </p>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="Close & Confirm" onclick={handleConfirm} disabled={disableConfirm}></lightning-button>
+    </lightning-modal-footer>
+</template>
