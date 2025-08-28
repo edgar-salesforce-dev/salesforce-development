@@ -31,9 +31,12 @@ const BASE_FIELDS = [
     ACTIONS_COL
 ];
 
+const MORE_THEN_FIVE = '+5';
+
 export default class RelatedEditableAndSortableContacts extends NavigationMixin(LightningElement) {
     @api recordId;
     data = [];
+    numberOfRelatedContacts;
     wiredData;
     errorMessage;
 
@@ -46,10 +49,6 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
 
     set columns(value){
         this._cols = value;
-    }
-
-    get numberOfRelatedContacts(){
-        return this.data.length;
     }
 
     get fields(){
@@ -71,7 +70,13 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
         const { error, data } = response;
         if(data){
             this.errorMessage = '';
-            this.data = data;
+            if(data.length > 5) {
+                this.numberOfRelatedContacts = MORE_THEN_FIVE;
+                this.data = data.slice(0,5);
+            } else {
+                this.numberOfRelatedContacts = data.length;
+                this.data = data;
+            }
         } else if(error){
             const message = error?.body?.message ?? 'Something Went Wrong';
             this.errorMessage = message;
