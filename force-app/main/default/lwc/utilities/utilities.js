@@ -49,7 +49,7 @@ const showToast = (context, title, message, messageData, variant) => {
         messageData,
         variant
     });
-    this.dispatchEvent(toast);
+    context.dispatchEvent(toast);
 }
 
 /**
