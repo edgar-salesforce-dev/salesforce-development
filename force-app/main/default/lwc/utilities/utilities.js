@@ -35,9 +35,28 @@ const capitalizeString = (str) => {
 }
 
 /**
+ * Show Toast Notifications using ShowToastEvent.
+ * @param {context} object: represents where the function will be executed. normally "this" = lwc.
+ * @param {title} string: notification title.
+ * @param {message} string: main message to display in the notification.
+ * @param {messageData} Array: used to include dynamic details to a message.
+ * @return {string} capitalized string.
+ */
+const showToast = (context, title, message, messageData, variant) => {
+    const toast = new ShowToastEvent({
+        title,
+        message,
+        messageData,
+        variant
+    });
+    this.dispatchEvent(toast);
+}
+
+/**
  * List all reusable functionalities
  */
 export {
     errorNotificationMessages,
-    capitalizeString
+    capitalizeString,
+    showToast,
 }
