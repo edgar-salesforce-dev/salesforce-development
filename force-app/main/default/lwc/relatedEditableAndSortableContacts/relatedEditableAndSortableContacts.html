@@ -20,12 +20,8 @@
             </lightning-layout>
         </header>
         <main>
-            <lightning-datatable key-field="Id" data={data} columns={columns} 
-                show-row-number-column
-                hide-checkbox-column
-                onrowaction={handleRowActionSelected}
-                draft-values={draftValues}
-                onsave={handleSave}></lightning-datatable>
+            <c-custom-datatable-types key-field="Id" data={data} columns={columns} show-row-number-column hide-checkbox-column
+                onrowaction={handleRowActionSelected} draft-values={draftValues} onsave={handleSave}></c-custom-datatable-types>
             <template lwc:if={errorMessage}>
                 <article class="slds-box">
                     <p class="slds-text-align_center">
