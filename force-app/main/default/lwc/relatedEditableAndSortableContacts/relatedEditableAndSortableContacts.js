@@ -6,6 +6,7 @@ import { deleteRecord, updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import ModalContact from 'c/modalContact';
 import { refreshApex } from "@salesforce/apex";
+import { capitalizeString } from 'c/utilities';
 
 const ACTIONS = [
     { label: 'Edit', name: 'edit' },
@@ -124,12 +125,7 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
                 this.columns = newCols;
             }
         }).catch(error => {
-            const toastError = new ShowToastEvent({
-                title: 'Error!',
-                message: error.detail,
-                variant: 'error'
-            });
-            this.dispatchEvent(toastError);
+            this.showToast(error.detail, 'error');
         })
     }
 
@@ -206,19 +202,10 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
     deleteRecordAction(id) {
         deleteRecord(id)
         .then(() => {
-            const toastSuccess = new ShowToastEvent({
-                title: 'Success!',
-                message: 'Record Deleted Successfully...',
-                variant: 'success'
-            });
-            this.dispatchEvent(toastSuccess);
+            this.showToast('Record Deleted Successfully...', 'success');
         }).catch(error => {
-            const toastError = new ShowToastEvent({
-                title: 'Error!',
-                message: error?.body?.message ?? 'Something Went Wrong...',
-                variant: 'error'
-            });
-            this.dispatchEvent(toastError);
+            const message = error?.body?.message ?? 'Something Went Wrong...';
+            this.showToast(message, 'error');
         })
     }
 
@@ -228,12 +215,7 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
             if(res === undefined) return;
             const response = JSON.parse(res);
             if(response.status === 'CANCELED'){
-                const toastError = new ShowToastEvent({
-                    title: 'Canceled!',
-                    message: 'Canceled Action',
-                    variant: 'info'
-                });
-                this.dispatchEvent(toastError);
+                this.showToast('Canceled Action', 'info');
             } else if(response.status === 'SUCCESS'){
                 this[NavigationMixin.GenerateUrl]({
                     type: 'standard__recordPage',
@@ -259,12 +241,7 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
                 throw response.error;
             }
         }).catch(error => {
-            const toastError = new ShowToastEvent({
-                title: 'Error!',
-                message: error.detail,
-                variant: 'error'
-            });
-            this.dispatchEvent(toastError);
+            this.showToast(error.detail, 'error');
         });
     }
 
@@ -293,12 +270,8 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
             this.refreshRelatedList(this.wiredData);
         }).catch(error => {
             this.draftValues = [];
-            const toastError = new ShowToastEvent({
-                title: 'Error!',
-                message: error.body.message || 'Something Went Wrong',
-                variant: 'error'
-            });
-            this.dispatchEvent(toastError);
+            const message = error.body.message || 'Something Went Wrong';
+            this.showToast(message, 'error');
         })
     }
 
@@ -308,5 +281,14 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
 
     handleRefresh(){
         this.refreshRelatedList(this.wiredData);
+    }
+
+    showToast(message, variant){
+        const toast = new ShowToastEvent({
+            title: `${capitalizeString(variant)}!`,
+            message,
+            variant
+        });
+        this.dispatchEvent(toast);
     }
 }
