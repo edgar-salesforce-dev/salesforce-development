@@ -11,14 +11,7 @@ const errorNotificationMessages = (messages, context) => {
     }
 
     for (let message of messages) {
-        const notification = new ShowToastEvent({
-            title: 'Error',
-            message: message,
-            variant: 'error',
-            mode: 'stick'
-        });
-        
-        context.dispatchEvent(notification);
+        showToast(context, 'Error!', message, undefined, 'error');
     }
 }
 
