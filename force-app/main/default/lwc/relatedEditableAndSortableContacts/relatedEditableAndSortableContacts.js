@@ -14,16 +14,28 @@ const ACTIONS = [
 ];
 
 const ACTIONS_COL = {
-        type: 'action',
-        typeAttributes: {
-            rowActions: ACTIONS,
-            menuAlignment: 'auto'
-        }
+    type: 'action',
+    typeAttributes: {
+        rowActions: ACTIONS,
+        menuAlignment: 'auto'
     }
+}
+
+const NAME_COL = { 
+    label: 'Name', 
+    fieldName: 'Name', 
+    wrapText: true,
+    type: 'customReference',
+    typeAttributes: {
+        recordId: { fieldName: 'Id'},
+        name: { fieldName: 'Name' },
+        icon: 'standard:contact',
+        size: 'small'
+    }
+}
 
 const BASE_FIELDS = [
-    { label: 'First Name', fieldName: 'FirstName' },
-    { label: 'Last Name', fieldName: 'LastName' },
+    NAME_COL,
     { label: 'Birthdate', fieldName: 'Birthdate', type: 'date', editable: true },
     { label: 'Languages', fieldName: 'Languages__c', editable: true },
     { label: 'Email', fieldName: 'Email', type: 'email', editable: true },
@@ -60,7 +72,7 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
                 continue;
             }
         }
-
+        fields.sort((a) => a.fieldName === 'Name' ? -1 : 1);
         return fields.join(',');
     }
 
@@ -104,15 +116,9 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
             if(res === undefined) return;
             const response = JSON.parse(res);
             if(response.status === 'SUCCESS'){
-                const newCols = [];
+                const newCols = [ NAME_COL ];
                 for(let field of response.fields){
-                    const isEditable = field.dataType !== 'Reference';
-                    newCols.push({
-                        label: field.label,
-                        fieldName: field.apiName,
-                        editable: isEditable,
-                        type: isEditable ? field.dataType.toLowerCase() : undefined
-                    })
+                    newCols.push(this.buildColumn(field));
                 }
                 newCols.push(ACTIONS_COL);
                 this.columns = newCols;
@@ -125,6 +131,29 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
             });
             this.dispatchEvent(toastError);
         })
+    }
+
+    buildColumn(field){
+        let column = {}
+        column.label = field.label;
+        column.fieldName = field.apiName;
+        column.wrapText = true;
+        if(field.reference){
+            column.editable = false;
+            column.type = 'customReference';
+            const iconType = field.referenceToInfos[0].apiName.toLowerCase();
+            column.typeAttributes = {
+                recordId: { fieldName: field.apiName },
+                name: { fieldName: field.apiName },
+                icon: 'standard:' + iconType,
+                size: 'small'
+            }
+        } else{
+            column.editable = true;
+            column.type = field.dataType.toLowerCase();
+        }
+
+        return column;
     }
 
     handleCreateRelatedContact(){
@@ -279,14 +308,5 @@ export default class RelatedEditableAndSortableContacts extends NavigationMixin(
 
     handleRefresh(){
         this.refreshRelatedList(this.wiredData);
-    }
-
-    currentlyInDevelopment(){
-        const toastInfo = new ShowToastEvent({
-            title: 'Info!',
-            message: 'Functionality currently in development...',
-            variant: 'info'
-        });
-        this.dispatchEvent(toastInfo);
     }
 }
