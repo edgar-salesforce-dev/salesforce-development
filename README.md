@@ -164,6 +164,37 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - test class for: `AccountService`
         - coverage: 100%
 
+## Custom Data Table: CDT
+
+**Requirement:**
+
+* Build a Case Manager that retrieves a non-closed cases levaraging custom datatable data types to make quicks update and navigate to parent contact and account.
+    - fields(columns):
+        - Case Number (reference): navigate to the Case Record
+        - Origin (picklist): view and edit modes
+        - Priority (picklist): view and edit modes
+        - Reason (picklist): view and edit modes
+        - Type (picklist): view and edit modes
+        - Account (reference): navigate to the case parent Account Record
+        - Contact (reference): navigate to the case parent Contact Record
+
+**Components**
+* `LWC`
+    - `caseManagerWithCustomTable`
+        - reuse customDatatable component to leverage custom datatable data types.
+            - user is able to update multiple records at a time.
+            - user is able to create new cases.
+
+* `Apex Classes`
+    - `CaseServices`
+        - Method1: `getNotClosedCases`
+            - params: <none>
+            - Conditions: Status != 'Closed
+            - return: `List<Cases>`
+    - `CaseServicesTest`:
+        - test class for: `CaseServices`
+        - coverage: 100%
+
 # Utils
 ## Integration Service with metadata
 - Apex Classes:

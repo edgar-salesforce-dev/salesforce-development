@@ -27,4 +27,20 @@ public with sharing class TestDataFactory {
         insert contacts;
         return contacts;
     }
+    public static List<Case> createCases(List<Contact> contacts, Integer n){
+        List<Case> cases = new List<Case>();
+        for(Contact ctc : contacts){
+            for(Integer i = 0; i < n; i++){
+                Case c = new Case();
+                c.Status = Math.mod(i, 2) == 0 ? 'Closed' : 'New';
+                c.Priority = 'Low';
+                c.Reason = 'Installation';
+                c.Type = 'Electronic';
+
+                cases.add(c);
+            }
+        }
+        insert cases;
+        return cases;
+    }
 }
