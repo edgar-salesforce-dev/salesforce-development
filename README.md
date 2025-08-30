@@ -195,3 +195,6 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - `customReference`
     - `referenceFieldType`: to navigete to a particular reference = record page.
     - `utilities`: reusable functions.
+    - `customDatatable`: include the following custom types:
+        - `customPicklist`: modes for view and edit.
+        - `customReference`: modes for view and navigate to the reference.
