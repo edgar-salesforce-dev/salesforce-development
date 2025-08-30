@@ -44,6 +44,48 @@ const showToast = (context, title, message, messageData, variant) => {
     });
     context.dispatchEvent(toast);
 }
+/**
+ * Reusable function to build customPicklist column datatable data type.
+ * @param {fieldApiName} string: field Api name to build the picklist base on specified field.
+ * @param {picklistFieldValue} string: pass picklist values for that field.
+ * @return {Object} column representation for a datatable.
+ */
+const buildCustomPicklistColumn = (fieldApiName, picklistFieldValue) => {
+    return { 
+        label: fieldApiName.replace('__c', ''), 
+        fieldName: fieldApiName, 
+        type: 'customPicklist', 
+        wrapText: true,
+        editable: true,
+        typeAttributes: {
+            value: { fieldName: fieldApiName },
+            options: picklistFieldValue.values,
+            context: { fieldName: 'Id' }
+        }
+    }
+}
+
+/**
+ * Reusable function to build customReference column datatable data type.
+ * @param {label} string: title column header.
+ * @param {reference} string: reference field api name, normally Id, AccountId, OwnerId, etc. NOT DISPLAYED IN UI
+ * @param {icon} string: icon that will apear next to the reference name.
+ * @param {name} string: value that will be displayed in the UI.
+ * @return {Object} column representation for a datatable.
+ */
+const buildCustomReferenceColumn = (label, reference, icon, context, name) => {
+    return { 
+        label: label, 
+        fieldName: reference, 
+        wrapText: true,
+        type: 'customReference',
+        typeAttributes: {
+            icon: icon,
+            context: { fieldName: context },
+            value: { fieldName: name }
+        }
+    }
+}
 
 /**
  * List all reusable functionalities
@@ -52,4 +94,6 @@ export {
     errorNotificationMessages,
     capitalizeString,
     showToast,
+    buildCustomPicklistColumn,
+    buildCustomReferenceColumn
 }
