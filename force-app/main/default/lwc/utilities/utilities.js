@@ -10,9 +10,9 @@ const errorNotificationMessages = (messages, context) => {
         return undefined;
     }
 
-    for (let message of messages) {
+    messages.forEach(message => {
         showToast(context, 'Error!', message, undefined, 'error');
-    }
+    });
 }
 
 /**
