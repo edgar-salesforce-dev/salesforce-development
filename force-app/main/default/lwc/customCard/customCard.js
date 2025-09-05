@@ -17,6 +17,6 @@ export default class CustomCard extends LightningElement {
     }
 
     get headerAndFooterVariant(){
-        return ['slds-var-p-around_large', this.variant];
+        return ['slds-var-p-around_large', 'slds-border_top', 'slds-border_bottom', this.variant];
     }
 }

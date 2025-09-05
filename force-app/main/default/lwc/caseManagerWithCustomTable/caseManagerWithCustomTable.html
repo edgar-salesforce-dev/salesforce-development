@@ -2,29 +2,21 @@
     <template lwc:if={isLoading}>
         <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
     </template>
-    <header class="slds-box slds-theme_default">
-        <lightning-layout horizontal-align="spread" vertical-align="center">
-            <lightning-layout-item flexibility="auto">
-                <div class="slds-align_absolute-center">
-                    <lightning-icon icon-name="standard:case" alternative-text="Cases" size="small" title="small size"
-                        variant="inverse"></lightning-icon>
-                        <h1 class="slds-text-heading_small slds-var-m-left_small">
-                            Case Manager ({data.length})
-                        </h1>
-                </div>
-            </lightning-layout-item>
-            <lightning-layout-item flexibility="auto">
-                <lightning-button variant="brand" label="New Case" onclick={handleCreateCase}></lightning-button>
-            </lightning-layout-item>
-        </lightning-layout>
-    </header>
-    <main lwc:if={isData} class="slds-box">
-        <c-custom-datatable key-field="Id" data={data} columns={columns} hide-checkbox-column show-row-number-columns
-            onnavigate={handleNavigateRecord} draft-values={draftValues} oncellchange={handleCellChange} oncancel={handleCancel} onsave={handleSave}></c-custom-datatable>
-    </main>
-    <template lwc:elseif={isError}>
-        <article class="slds-box slds-align_absolute-center">
-            <p>{errorMessage}</p>
-        </article>
-    </template>
+    <c-custom-card show-title icon-name="standard:case" variant="slds-theme_shade">
+        <span slot="title">Case Manager ({data.length})</span>
+        <div slot="actions">
+            <lightning-button variant="brand" label="New Case" onclick={handleCreateCase}></lightning-button>
+        </div>
+        <section slot="body">
+            <template lwc:if={isData}>
+                <c-custom-datatable key-field="Id" data={data} columns={columns} hide-checkbox-column show-row-number-columns
+                    onnavigate={handleNavigateRecord} draft-values={draftValues} oncellchange={handleCellChange} oncancel={handleCancel} onsave={handleSave}></c-custom-datatable>
+            </template>
+            <template lwc:elseif={isError}>
+                <article class="slds-box slds-align_absolute-center">
+                    <p>{errorMessage}</p>
+                </article>
+            </template>
+        </section>
+    </c-custom-card>
 </template>
