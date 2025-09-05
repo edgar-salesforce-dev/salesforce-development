@@ -229,3 +229,18 @@ Create a Task Manager application in Salesforce where users can create, view, up
     - `customDatatable`: include the following custom types:
         - `customPicklist`: modes for view and edit.
         - `customReference`: modes for view and navigate to the reference.
+    - `customCard`: resonsive reusable card
+        - header:
+            - title (add as child/slot) + icon
+            - actions: to include buttons
+        - body (add as child/slot):
+            - aside <controlled>: information related to the main content
+            - main content (body): main information of the card.
+        - footer (add as child/slot):
+            - can add any info related to the footer of the component.
+        - inputs/public properties (api):
+            - @api showTitle <boolean>: specify if components needs a title.
+            - @api iconName <string>: specify icon name to show. e.g., standard:account | standard:contact...
+            - @api withAside <boolean>: specifies if the components need an aside block 
+            - @api variant <string>: specifies the variant for footer and header
+            - @api showFooter <boolean>: specifies is components needs a footer.
