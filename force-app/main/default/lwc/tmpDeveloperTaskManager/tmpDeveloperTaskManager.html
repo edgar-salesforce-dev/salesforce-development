@@ -1,5 +1,5 @@
 <template>
-    <lightning-card icon-name="action:follow">
+    <c-custom-card show-title icon-name="action:follow" variant="slds-theme_shade">
         <h1 slot="title">
             Developer Task Manager - TMP
         </h1>
@@ -24,7 +24,7 @@
                 ></lightning-button>
             </lightning-button-group>
         </header>
-        <main class="slds-var-p-around_large">
+        <main slot="body" class="slds-var-p-around_large">
             <lightning-layout multiple-rows>
                 <lightning-layout-item size="12" large-device-size="12" medium-device-size="12" small-device-size="12" padding="around-small">
                     <!-- Task Cards Container -->
@@ -66,7 +66,7 @@
                 </lightning-layout-item>
             </lightning-layout>
         </main>
-    </lightning-card>
+    </c-custom-card>
     <template lwc:if={showCreateForm}>
         <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open" aria-labelledby="modal-heading-01" aria-modal="true">
             <div class="slds-modal__container">
