@@ -1,0 +1,70 @@
+<template>
+    <form onsubmit={handleSaveRecord} >
+        <div class={formStyles}>
+            <lightning-layout horizontal-align="spread" vertical-align="start" multiple-rows>
+                <template for:each={formFields} for:item="field">
+                    <lightning-layout-item key={field.name} size={size}>
+                        <article class="slds-var-m-around_x-small">
+                            <template lwc:if={editMode}>
+                                <template lwc:if={field.isReference}>
+                                    <lightning-record-picker label={field.label} value={field.value} data-type={field.type}
+                                        name={field.name} onchange={handleChange}
+                                        object-api-name={field.parentObject} read-only={field.readOnly} required={field.isRequired}></lightning-record-picker>
+                                </template>
+                                <template lwc:elseif={field.isPicklist}>
+                                    <lightning-combobox data-type={field.type} name={field.name} label={field.label} value={field.value}
+                                        options={field.options} onchange={handleChange} read-only={field.readOnly} required={field.isRequired}></lightning-combobox>
+                                </template>
+                                <template lwc:else>
+                                    <lightning-input data-type={field.type} type={field.type} label={field.label} name={field.name}
+                                        value={field.value} onchange={handleChange} required={field.isRequired}
+                                            read-only={field.readOnly} variant="label-stacked" checked={field.value}></lightning-input>
+                                </template>
+                            </template>
+                            <template lwc:else>
+                                <div class="slds-border_bottom">
+                                    <label for="view-input" class="slds-form-element_stacked">{field.label}</label>
+                                    <div class="slds-form-element_stacked">
+                                        <lightning-layout horizontal-align="spread" vertical-align="center">
+                                            <lightning-layout-item flexibility="auto">
+                                                <template lwc:if={field.isReference}>
+                                                    <lightning-record-picker label={field.label} variant="label-hidden" value={field.value} data-type={field.type}
+                                                        name={field.name} object-api-name={field.parentObject} disabled></lightning-record-picker>
+                                                </template>
+                                                <template lwc:elseif={field.isCheckbox}>
+                                                    <lightning-input type={field.type} label={field.label} name={field.name} 
+                                                        onchange={handleChange} read-only={field.readOnly} variant="label-hidden" 
+                                                            checked={field.value} disabled></lightning-input>
+                                                </template>
+                                                <template lwc:elseif={field.isUrl}>
+                                                    <span>
+                                                        <a href={field.value}>{field.value}</a>
+                                                    </span>
+                                                </template>
+                                                <template lwc:else>
+                                                    <span>{field.value}</span>
+                                                </template>
+                                            </lightning-layout-item>
+                                            <template lwc:if={field.readOnly}>
+                                                <lightning-layout-item flexibility="auto"></lightning-layout-item>
+                                            </template>
+                                            <template lwc:else>
+                                                <lightning-button-icon title="Edit Icon" icon-name="utility:edit" alternative-text="Edit" size="small" type="button" variant="bare" onclick={handleEditMode}></lightning-button-icon>
+                                            </template>
+                                        </lightning-layout>
+                                    </div>
+                                </div>
+                            </template>
+                        </article>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </div>
+        <template lwc:if={editMode}>
+            <div class="slds-align_absolute-center slds-theme_shade slds-var-p-around_small">
+                <lightning-button variant="neutral" label="Cancel" type="cancel" onclick={handleCancel}></lightning-button>
+                <lightning-button variant="brand" label="Update Record" type="submit" class="slds-var-m-left_small"></lightning-button>
+            </div>
+        </template>
+    </form>
+</template>

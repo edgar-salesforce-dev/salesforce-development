@@ -244,3 +244,11 @@ Create a Task Manager application in Salesforce where users can create, view, up
             - @api withAside <boolean>: specifies if the components need an aside block 
             - @api variant <string>: specifies the variant for footer and header
             - @api showFooter <boolean>: specifies is components needs a footer.
+    - `dynamicForm`: reusable component to show forms dynamically (similar to `<lightning-record-form>`):
+        - public properties:
+            - `recordId`
+            - `objectApiName`
+            - `fields` <Array[Objects]>
+                e.g., object = { fieldApiName: 'LeadSource', objectApiName: 'Lead' }
+            - `columns`specifies the number of columns: values for better looking: 1, 2, 3, 4
+            - `variant` defines the form styles:
