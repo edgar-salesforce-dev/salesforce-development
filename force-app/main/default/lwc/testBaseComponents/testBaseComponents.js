@@ -22,17 +22,16 @@ export default class TestBaseComponents extends LightningElement {
             },
         ];
     }
-    handleInputLocationChange(event) {
-        for (const key in event.detail) {
-            this[key] = event.detail[key];
-        }
+    handleInputLocationAddressChange(event) {
+        this.handleLocationAddressProps(event.detail);
     }
 
-    handleInputAddressChange(event) {
-        for (const key in event.detail) {
+    handleLocationAddressProps(details) {
+        console.log(details);
+        for (const key in details) {
             if (INVALID_PROPS.includes(key)) continue;
 
-            this[key] = event.detail[key];
+            this[key] = details[key];
         }
     }
 }

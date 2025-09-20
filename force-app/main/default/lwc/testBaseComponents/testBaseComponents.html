@@ -8,7 +8,7 @@
                     </h2>
                     <section class="slds-var-m-around_small">
                         <lightning-input-location label="Location" latitude={latitude} longitude={longitude}
-                            onchange={handleInputLocationChange} field-level-help="Enter a location by latitude and longitude"></lightning-input-location>
+                            onchange={handleInputLocationAddressChange} field-level-help="Enter a location by latitude and longitude"></lightning-input-location>
                     </section>
                     <h2 class="slds-text-heading_small slds-text-color_error slds-var-m-top_small">
                         <code>lightning-formatted-location</code>
@@ -34,22 +34,10 @@
                         <code>lightning-input-address</code>
                     </h2>
                     <section class="slds-var-m-around_small">
-                        <lightning-input-address
-                            address-label="Address"
-                            street-label="Street"
-                            city-label="City"
-                            country-label="Country"
-                            province-label="Province"
-                            postal-code-label="PostalCode"
-                            street={street}
-                            city={city}
-                            country={country}
-                            province={province}
-                            postal-code={postalCode}
-                            required
-                            field-level-help="Help Text for inputAddress field"
-                            onchange={handleInputAddressChange}
-                        ></lightning-input-address>
+                        <lightning-input-address address-label="Address" street-label="Street" city-label="City" country-label="Country"
+                            province-label="Province" postal-code-label="PostalCode" street={street} city={city} country={country}
+                            province={province} postal-code={postalCode} required field-level-help="Help Text for inputAddress field"
+                            onchange={handleInputLocationAddressChange}></lightning-input-address>
                     </section>
                     <h2 class="slds-text-heading_small slds-text-color_error slds-var-m-top_small">
                         <code>lightning-formatted-location</code>
