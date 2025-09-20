@@ -53,6 +53,32 @@
                     </section>
                 </article>
             </lightning-layout-item>
+            <lightning-layout-item size="12" large-device-size="4" medium-device-size="6" small-device-size="12" padding="around-small">
+                <article class="slds-box slds-theme_default">
+                    <h2 class="slds-text-heading_small slds-text-color_error">
+                        <code>lightning-accordion & lightning-accordion-section</code>
+                    </h2>
+                    <section class="slds-var-m-around_small">
+                        <template lwc:if={isLoadingAccordion}>
+                            <div class="slds-is-relative" style="height: 5rem;">
+                                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+                            </div>
+                        </template>
+                        <template lwc:else>
+                            <lightning-accordion onsectiontoggle={handleSectionToggle} active-section-name={activeSection}>
+                            <template for:each={sections} for:item="section">
+                                <lightning-accordion-section name={section.name} label={section.name} key={section.name}>
+                                    <article class="slds-var-p-around_small">
+                                        <lightning-datatable key-field="Id" data={section.data} columns={section.cols} hide-checkbox-column
+                                            show-row-number-column></lightning-datatable>
+                                    </article>
+                                </lightning-accordion-section>
+                            </template>
+                        </lightning-accordion>
+                        </template>
+                    </section>
+                </article>
+            </lightning-layout-item>
         </lightning-layout>
     </main>
 </template>
