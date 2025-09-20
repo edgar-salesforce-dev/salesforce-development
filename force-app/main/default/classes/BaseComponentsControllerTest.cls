@@ -22,12 +22,13 @@ public class BaseComponentsControllerTest {
     @IsTest
     static void testGetRecords(){
         List<SObject> accounts = BaseComponentsController.getRecords('Accounts');
-        System.assertEquals(5, accounts.size());
         List<SObject> contacts = BaseComponentsController.getRecords('Contacts');
-        System.assertEquals(5, contacts.size());
         List<SObject> opps = BaseComponentsController.getRecords('Opportunities');
-        System.assertEquals(5, opps.size());
-        List<SObject> othres = BaseComponentsController.getRecords('');
-        System.assertEquals(0, othres.size());
+        List<SObject> others = BaseComponentsController.getRecords('');
+
+        Assert.areEqual(5, accounts.size());
+        Assert.areEqual(5, contacts.size());
+        Assert.areEqual(5, opps.size());
+        Assert.areEqual(0, others.size());
     }
 }
