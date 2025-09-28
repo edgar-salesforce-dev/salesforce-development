@@ -1,5 +1,10 @@
 import { LightningElement } from 'lwc';
 import getRecords from '@salesforce/apex/BaseComponentsController.getRecords';
+import LightningConfirm from 'lightning/confirm';
+import LightningAlert from 'lightning/alert';
+import LightningPrompt from 'lightning/prompt';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { capitalizeString } from 'c/utilities';
 
 const INVALID_PROPS = [ 'subpremise', 'validity' ];
 
@@ -86,5 +91,74 @@ export default class TestBaseComponents extends LightningElement {
 
         this.sections = sections;
         this.isLoadingAccordion = false;
+    }
+    /**
+     * LightningConfirm module
+     */
+    confirmLabel = 'Confirm';
+    async handleConfirm() {
+        const result = await LightningConfirm.open({
+            message: 'You are about to confirm something. Click "OK" to confirm, otherwise click "Cancel"',
+            variant: 'header',
+            label: 'Confirm Modal'
+        });
+        // result = true (OK) || false (Cancels)
+        console.log(result);
+        if (result) {
+            this.confirmLabel = 'Confirmed';
+        } else {
+            this.confirmLabel = 'Canceled';
+        }
+    }
+    /**
+     * LightningAlert module
+     * open:
+     *  {variant}: headerless, header
+     *  {theme}: default, shade, inverse, alt-inverse, success, info, warning, error, offline
+     */
+    alertLabel = 'Alert';
+    async handleAlert() {
+        await LightningAlert.open({
+            message: 'This is an alert message, read carefully',
+            variant: 'header',
+            theme: 'warning',
+            label: 'Warning'
+        });
+        // Code after close alert.
+        this.alertLabel = 'Alerted';
+    }
+    /**
+     * LightningPrompt module
+     * open:
+     *  {variant}: headerless, header
+     *  {theme}: default, shade, inverse, alt-inverse, success, info, warning, error, offline
+     */
+    async handlePrompt() {
+        LightningPrompt.open({
+            message: 'Enter your age (e.g., 21)',
+            variant: 'header',
+            theme: 'info',
+            label: 'Enter the Info',
+            defaultValue: 'age',
+        }).then(result => {
+            console.log(result);
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+    /**
+     * { ShowToastEvent }
+     */
+    handleToastEvent(event) {
+        const variant = event.target.name;
+        
+        const toast = new ShowToastEvent({
+            variant: variant,
+            title: capitalizeString(variant),
+            message: 'Toast Message goes here...',
+            mode: 'sticky'
+        });
+
+        this.dispatchEvent(toast);
     }
 }
