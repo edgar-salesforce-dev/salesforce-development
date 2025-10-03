@@ -71,20 +71,15 @@ export default class CaseManagerWithCustomTable extends NavigationMixin(Lightnin
     }
 
     handleCellChange(e){
-        const newDraftValue = e.detail.draftValues[0];
-        if(this.mapDraftValues.has(newDraftValue.Id)){
-            const currentObject = this.mapDraftValues.get(newDraftValue.Id);
-            const mergedObjects = Object.assign(currentObject, newDraftValue);
-            this.mapDraftValues.set(newDraftValue.Id, mergedObjects);
+        const newDraft = e.detail.draftValues[0];
+        
+        const existingDraft = this.draftValues.find(draft => draft.Id === newDraft.Id);
+        if (existingDraft) {
+            const mergedObjects = Object.assign(existingDraft, newDraft);
+            this.draftValues = [ ...this.draftValues, mergedObjects ];
         } else {
-            this.mapDraftValues.set(newDraftValue.Id, newDraftValue);
+            this.draftValues = [ ...this.draftValues, newDraft ];
         }
-
-        const drafts = [];
-        this.mapDraftValues.forEach(draftValue => {
-            drafts.push(draftValue);
-        });
-        this.draftValues = drafts;
         
         this.updateDatatableByDraftChanges(undefined);
     }
