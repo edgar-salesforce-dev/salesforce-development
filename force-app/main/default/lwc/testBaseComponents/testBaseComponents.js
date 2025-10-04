@@ -5,13 +5,14 @@ import LightningAlert from 'lightning/alert';
 import LightningPrompt from 'lightning/prompt';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { capitalizeString } from 'c/utilities';
+import { NavigationMixin } from 'lightning/navigation'
 
 const INVALID_PROPS = [ 'subpremise', 'validity' ];
 
 const SECTIONS_OBJECTS = [ 'Accounts', 'Contacts', 'Opportunities' ];
 const VALID_FIELD_TYPES = [ 'Phone', 'Email' ];
 
-export default class TestBaseComponents extends LightningElement {
+export default class TestBaseComponents extends NavigationMixin(LightningElement) {
     // Location
     latitude = '37.7938460';
     longitude = '-136.3948370';
@@ -49,6 +50,7 @@ export default class TestBaseComponents extends LightningElement {
      */
     connectedCallback() {
         this.handleGetObjectData();
+        this.generateAccountUrl();
     }
 
     /**
@@ -160,5 +162,32 @@ export default class TestBaseComponents extends LightningElement {
         });
 
         this.dispatchEvent(toast);
+    }
+
+    /**
+     * lightning-title
+     */
+    accountUrl;
+    titleActions = [
+        { label: 'Edit', value: 'edit', iconName: 'utility:edit' },
+        { label: 'Delete', value: 'delete', iconName: 'utility:delete' },
+    ];
+    generateAccountUrl() {
+        const pageReference = {
+            type: 'standard__objectPage',
+            attributes: {
+                objectApiName: 'Account',
+                actionName: 'home',
+            },
+        }
+
+        this[NavigationMixin.GenerateUrl](pageReference)
+        .then((url) => {
+            this.accountUrl = url;
+        });
+    }
+
+    handleTitleActions(event) {
+        console.log(event.detail.action);
     }
 }
