@@ -1,5 +1,5 @@
 <template>
-    <main class="slds-card">
+    <main class="slds-card slds-theme_shade">
         <lightning-layout multiple-rows>
             <lightning-layout-item size="12" large-device-size="4" medium-device-size="6" small-device-size="12" padding="around-small">
                 <article class="slds-box slds-theme_default">
@@ -148,6 +148,19 @@
                     <section class="slds-var-m-around_small">
                         <lightning-tile label="Go Account Home" href={accountUrl} type="media" actions={titleActions}
                             onactiontriggered={handleTitleActions}></lightning-tile>
+                    </section>
+                </article>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" large-device-size="4" medium-device-size="6" small-device-size="12" padding="around-small">
+                <article class="slds-box slds-theme_default">
+                    <h2 class="slds-text-heading_small slds-text-color_error">
+                        <code>lightning-select</code>
+                    </h2>
+                    <section class="slds-var-m-around_small">
+                        <lightning-select label="Select an Option" placeholder="Choose an Option..." onchange={handleSelectChange} name="single" value={selectedOption} options={selectOptions}></lightning-select>
+                        <div class="slds-var-m-top_small">
+                            <lightning-select label="Select Multiple Options" placeholder="Choose an Option..." onchange={handleSelectChange} name="multiple" value={selectedOptionMultiple} options={selectOptions} multiple></lightning-select>
+                        </div>
                     </section>
                 </article>
             </lightning-layout-item>

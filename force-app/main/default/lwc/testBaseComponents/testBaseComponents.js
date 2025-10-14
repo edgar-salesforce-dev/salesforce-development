@@ -190,4 +190,27 @@ export default class TestBaseComponents extends NavigationMixin(LightningElement
     handleTitleActions(event) {
         console.log(event.detail.action);
     }
+
+    /**
+     * lightning-select
+     */
+    selectedOption = 'youtube';
+    selectedOptionMultiple;
+
+    get selectOptions() {
+        return [
+            { label: 'YouTube', value: 'youtube' },
+            { label: 'Amazon Prime', value: 'amazon' },
+            { label: 'HBO Max', value: 'hbo' },
+            { label: 'Netflix', value: 'netflix' },
+        ];
+    }
+
+    handleSelectChange(event) {
+        if(typeof event.detail.value === 'string') {
+            this.selectedOption = event.detail.value;
+        } else {
+            this.selectedOptionMultiple = event.detail.value;
+        }
+    }
 }
