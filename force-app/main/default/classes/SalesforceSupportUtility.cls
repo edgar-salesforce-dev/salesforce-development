@@ -7,14 +7,28 @@ public class SalesforceSupportUtility {
      * @param {uName} string: username's user that you want to know the permission sets assigned
      * @return List<PermissionSet>: permission sets assigend
      */
-    public static List<PermissionSet> getPermissionSetsAssigned(String uName) {
-        List<PermissionSet> psAssigned = [
-            SELECT Id, Name, Label
-            FROM PermissionSet
-            WHERE Id IN (SELECT PermissionSetId FROM PermissionSetAssignment WHERE Assignee.Username =: uName)
-        ];
+    public static PermissionSetsWrapper getPermissionSetsAssigned(String uName) {
+        PermissionSetsWrapper result = new PermissionSetsWrapper();
+        try {
+            List<PermissionSet> psAssigned = [
+                SELECT Id, Name, Label
+                FROM PermissionSet
+                WHERE Id IN (SELECT PermissionSetId FROM PermissionSetAssignment WHERE Assignee.Username =: uName)
+            ];
 
-        return psAssigned;
+            if (!psAssigned.isEmpty()) {
+                result.status = 'Success';
+                result.data = psAssigned;
+            } else {
+                throw new CustomException('Permission Sets have not been assigned to ' + uName);
+            }
+        } catch (Exception ex) {
+            Error error = new Error(ex.getMessage());
+            result.status = 'Error';
+            result.error = error;
+        }        
+
+        return result;
     }
     /**
      * Retrieve a List of permissions sets that grants access to an apex class
