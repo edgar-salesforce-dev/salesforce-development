@@ -195,6 +195,19 @@ Create a Task Manager application in Salesforce where users can create, view, up
         - test class for: `CaseServices`
         - coverage: 100%
 
+## LWC Communication Pub-Sub: CPS
+
+**Requirement:**
+
+* Build an application that communicates unrelated components using Pub-Sub.
+
+**Components**
+
+- `messageChannel`
+    - name: RecordMessageChannel
+    - fields:
+        - recordId
+
 # Utils
 ## Integration Service with metadata
 - Apex Classes:
